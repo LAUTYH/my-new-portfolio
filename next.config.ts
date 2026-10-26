@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   turbopack: {
     rules: {
-      "*.css": {
+      // Keep CSS Modules on Next.js's native pipeline so their class exports survive.
+      "globals.css": {
         loaders: ["@tailwindcss/turbopack"],
         as: "*.css",
       },

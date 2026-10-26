@@ -107,32 +107,19 @@ body {
 
 ---
 
-## 🌌 Atmósfera Visual: Efecto de Degradado Ambiental (Estilo Gemini)
+## 🌌 Materiales y atmósfera
 
-Inspirado en la interfaz oficial de **Google Gemini**, la página implementa un efecto de iluminación ambiental continuo, orgánico y sutil (*"leve"*) que cubre la totalidad del sitio (Hero, Sección «Cómo Trabajo» y Footer).
+La presentación combina una composición de dos columnas, ilustraciones 3D originales y una navegación con vidrio translúcido. El fondo responde al contexto de navegación mediante fundidos entre paletas; no hay luces ni figuras girando en bucle.
 
-### Principios de Diseño
-1. **Fondo Neutro Absoluto:** Base sólida neutral sin saturaciones excesivas (`#0E1015` en Dark Mode; `#F8F9FA` en Light Mode).
-2. **Luces Difusas en Movimiento Continuo ("Es leve"):** Tres fuentes de luz orgánicas con desenfoque extremo (`blur(100px - 160px)`) que respiran, rotan y se desplazan autónomamente a baja velocidad sin requerir interacción del usuario.
-3. **Soporte Completo Dual-Theme (Dark & Light):**
-   - **Versión Dark:** Fondo neutro carbón obsidiana (`#0E1015`) con un aura atmosférica en azul cobalto (`#2563EB`, opacidad ~15%), índigo espacial (`#4F46E5`, opacidad ~14%) y violeta tenue (`#9333EA`, opacidad ~10%).
-   - **Versión Light:** Fondo neutro perla (`#F8F9FA`) con luminiscencia pastel translúcida en melocotón/coral cálido (`rgba(251, 146, 60, 0.18)`), cian cielo (`rgba(56, 189, 248, 0.20)`) y lavanda suave (`rgba(192, 132, 252, 0.16)`).
-4. **Cobertura de Página Completa:** Capa de luz fijada en el viewport (`fixed inset-0 pointer-events-none`) que acompaña la navegación a lo largo de todas las secciones con micro-reacción al desplazamiento (scroll) y soporte para `prefers-reduced-motion`.
-5. **Selector de Tema Integrado:** Toggle accesible en la barra superior con persistencia en `localStorage` y detección automática de preferencia de sistema (`prefers-color-scheme`).
+- **Inicio:** azul suave.
+- **Proceso:** azul, lavanda, celeste, menta o coral según la etapa seleccionada.
+- **Proyectos:** celeste para sistemas e IA, lavanda para apps y coral para sitios web.
 
----
+`PortfolioExperience` coordina la sección visible, la paleta y la reducción de efectos. `AmbientBackground` funde capas de gradientes. `experience.css` contiene el sistema de materiales, independiente de la compilación de Tailwind.
 
-## 🎨 Paleta y Tokens de Color Dual-Theme
+El vidrio se concentra en los controles de navegación: desenfoque de 26 px, saturación suave, reflejo superior y borde inferior. Las tarjetas y las fichas conservan superficies opacas con biseles y sombras para dar profundidad sin comprometer la lectura. Los estilos incluyen alternativas para reducción de transparencia y contraste aumentado.
 
-| Token | Dark Mode (Predeterminado) | Light Mode | Propósito |
-| :--- | :--- | :--- | :--- |
-| **`--background`** | `#0E1015` (Neutro Carbón) | `#F8F9FA` (Neutro Perla) | Fondo principal de la página |
-| **`--foreground`** | `#F1F5F9` (Slate 100) | `#0F172A` (Slate 900) | Color de texto principal |
-| **`--card-bg`** | `rgba(255, 255, 255, 0.03)` | `rgba(255, 255, 255, 0.85)` | Tarjetas y contenedores |
-| **`--card-border`** | `rgba(255, 255, 255, 0.08)` | `rgba(226, 232, 240, 0.80)` | Bordes sutiles de tarjetas |
-| **`--ambient-1`** | `rgba(37, 99, 235, 0.16)` (Cobalto) | `rgba(251, 146, 60, 0.20)` (Peach Gemini) | Luz ambiental A (Órbita 1) |
-| **`--ambient-2`** | `rgba(79, 70, 229, 0.14)` (Índigo) | `rgba(56, 189, 248, 0.22)` (Cyan Gemini) | Luz ambiental B (Órbita 2) |
-| **`--ambient-3`** | `rgba(147, 51, 234, 0.10)` (Violeta) | `rgba(192, 132, 252, 0.18)` (Lavanda Gemini) | Luz ambiental C (Órbita 3) |
+Las ilustraciones de reservas, entrenamiento y catálogos están en `public/images/projects/`, con alfa y optimización WebP (aproximadamente 493 KB en conjunto antes de la optimización de Next/Image). Son representaciones conceptuales, no capturas de los productos. Los prompts y la procedencia están en [docs/project-illustrations.md](docs/project-illustrations.md).
 
 ---
 
@@ -142,38 +129,79 @@ El proyecto implementa los principios fundamentales de diseño y accesibilidad d
 
 1. **Objetivos Táctiles Accesibles (44x44 pt):** Todos los botones interactivos (selector de tema, enlaces sociales, píldoras y flechas de navegación) cumplen con el área de contacto mínima de `44x44 pt` requerida por las guías de accesibilidad en iOS y pantallas táctiles (`accessibility.md › Mobility`).
 2. **Jerarquía Visual y Roles de Botón (`buttons.md › Style`):**
-   - **Acción Primaria:** El botón de contacto directo por email (`lauolmos@outlook.es` + botón de copiado) se destaca con estilo prominente de alto contraste (Dark: blanco sólido / Light: pizarra profundo).
-   - **Acciones Secundarias:** Los enlaces a GitHub y LinkedIn utilizan acabado *Liquid Glass* translúcido con bordes sutiles y micro-interacción de pulsación táctil (`active:scale-[0.98]`).
+   - **Acción primaria:** «Explorar proyectos» guía hacia la galería con contraste alto y bisel sutil. «Hablemos» y el copiado del correo se mantienen disponibles como acciones secundarias.
+   - **Acciones secundarias:** Los controles de apariencia, movimiento y GitHub comparten una superficie de vidrio; LinkedIn y el correo usan enlaces legibles con foco visible.
 3. **Respeto a Áreas Seguras (`env(safe-area-inset-*)`):** Adaptabilidad nativa para dispositivos con Dynamic Island, Notch y barra de inicio en iOS Safari sin solapamiento de contenido (`layout.md › Guides and safe areas`).
 4. **Legibilidad Tipográfica Estricta:** Cumplimiento de la regla de no utilizar pesos delgados (`font-light` / 300) en tamaños de texto pequeños (footers y notas), garantizando contraste superior a 4.5:1 (`typography.md › Ensuring legibility`).
 
 ---
 
-## 🛠️ Sección 2: Cómo Trabajo. (Experiencia Interactiva Apple Showcase)
+## 🛠️ Sección 2: Cómo trabajo
 
-Inspirada en el explorador interactivo de características de **Apple.com**, esta sección estructura los 6 puntos clave de Lautaro Olmos:
+Se conservan las seis etapas y su contenido: relevamiento, diseño, definición técnica, implementación, integración de IA y mantenimiento. Todas las pestañas permanecen presentes, con selección anunciada y controles por flechas, Inicio y Fin.
 
-1. **Relevamiento y análisis:** Analizo los procesos y las necesidades de la organización para definir el alcance y los objetivos del proyecto.
-2. **Diseño y planificación:** Diseño los flujos de trabajo y la estructura funcional del sistema. Organizo las etapas de desarrollo y sus entregables.
-3. **Definición técnica:** Defino la arquitectura, las tecnologías y las integraciones, considerando los requisitos de rendimiento, seguridad y acceso a la información.
-4. **Desarrollo e implementación:** Desarrollo sitios web, aplicaciones para iOS y Android, sistemas de gestión y automatizaciones, desde la interfaz hasta la lógica de negocio y la base de datos.
-5. **Integración de inteligencia artificial:** Integro agentes y modelos de IA con los datos y servicios del sistema para procesar consultas, ejecutar tareas y automatizar flujos de trabajo.
-6. **Mantenimiento y soporte técnico:** Realizo actualizaciones, monitoreo de disponibilidad, controles de seguridad y copias de respaldo. Resuelvo incidencias, optimizo el rendimiento e implemento mejoras, con informes periódicos de las tareas realizadas y el estado del sistema.
+La composición muestra tres capas conectadas —interfaz, lógica y datos— con profundidad sutil al desplazarse. La selección cambia el foco de la composición y su iluminación. Las descripciones se funden en 120 ms; el teclado actualiza el contenido sin animación.
 
-### Arquitectura de Interacción & Motion Design (Nivel 21st.dev & Apple HIG)
-* **Orquestación de Entradas (Blur Reveal):** Revelación fluida del Hero y títulos con desenfoque a nitidez (`blur(10px) -> blur(0px)` y `opacity: 0 -> 1`) utilizando la curva cúbica oficial de Apple `cubic-bezier(0.16, 1, 0.3, 1)`.
-* **Micro-física Táctil y Rebound Elástico:** Botones y píldoras con respuesta táctil por resortes de alta fidelidad (`whileHover={{ y: -2, scale: 1.02 }}`, `whileTap={{ scale: 0.96 }}`).
-* **Rotación Elástica del Botón `(+)`:** Rotación de 90° con rebote elástico al pasar el cursor sobre las píldoras colapsadas.
-* **Efecto Border Beam (21st.dev):** Resplandor ambiental perimetral dinámico en la tarjeta activa que realza el foco visual.
-* **Escenario Kinético con Escultura Geométrica Abstracta (*Stage*):**
-  - **Relevamiento y análisis:** Radar óptico orbital y lente de vidrio flotante con pulso concéntrico.
-  - **Diseño y planificación:** Planos isométricos flotantes con levitación orgánica desfasada.
-  - **Definición técnica:** Núcleo prismático de nodos y circuitos de datos con rotación continua.
-  - **Desarrollo e implementación:** Sistema orbital dual (Web / Mobile) con reactor de código esmeralda.
-  - **Integración de inteligencia artificial:** Iris sináptico con pétalos irisados y núcleo neural fucsia/índigo.
-  - **Mantenimiento y soporte técnico:** Telemetría circular con ticks angulares y sensor central de estabilidad.
-* **Desplazamiento Suave con Lenis (*Smooth Scroll & Weighted Inertia*):** Integración nativa de **Lenis** con amortiguación ponderada (`wheelMultiplier: 0.85`, `duration: 1.5s`) y curva exponencial Apple (`(t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))`), generando una sutil inercia/resistencia al deslizar hacia abajo que aporta una sensación táctil de alta gama sin saltos abruptos.
-* **Accesibilidad y `prefers-reduced-motion`:** Cumplimiento estricto con desactivación automática de animaciones pesadas y desplazamiento suave para usuarios con sensibilidad al movimiento.
+### Tres momentos de scroll
+
+1. La ilustración de presentación cambia levemente de perspectiva al abandonar el inicio.
+2. La estructura del proceso revela la relación entre sus capas al entrar en pantalla.
+3. Las ilustraciones de proyectos avanzan en profundidad mientras se explora la galería.
+
+Las transiciones usan Motion. La profundidad de scroll comparte un listener pasivo y agrupa las lecturas y escrituras de transformaciones en un único frame, sin actualizaciones de estado de React por cada píxel. Lenis suaviza la rueda en 800 ms y mantiene los enlaces de sección. El control **Reducir movimiento** y la preferencia del sistema eliminan las transformaciones, detienen Lenis y conservan todos los contenidos y controles.
+
+---
+
+## 📂 Sección 3: Mis proyectos
+
+Explorador de tres niveles: **categorías → proyectos → detalle**. La entrada avanza lateralmente y el regreso invierte la dirección, sin bloquear el desplazamiento vertical de la página.
+
+- **Sistemas de gestión e integración de IA:** sistema de reservas con agente conversacional.
+- **Aplicaciones móviles y plataformas web:** plataforma de entrenamiento y gestión.
+- **Sitios web corporativos:** Cooperativa Jabonera y El Rosquín.
+
+Las tarjetas muestran ilustraciones 3D originales con canal alfa. No son capturas de los productos. Cada ficha conserva la descripción, las funcionalidades y las tecnologías; el stack previsto de la plataforma móvil se despliega con un control nativo `details`.
+
+### Interacción y accesibilidad
+
+- Categoría y proyecto se reflejan en la URL; los enlaces se pueden compartir y abrir en otra pestaña.
+- Atrás y Adelante del navegador mantienen el recorrido. Al entrar, el foco pasa al título; al volver, regresa a la tarjeta de origen.
+- La entrada lateral dura 280 ms y la salida 180 ms; se omiten con movimiento reducido y al activar enlaces por teclado. Las vistas que salen quedan inertes durante su animación.
+- Controles de navegación de al menos 44 px, foco visible, distribución adaptable y soporte de contraste aumentado.
+- Las superficies de contenido son opacas; el control de categorías utiliza vidrio con una selección compartida y permanece accesible al recorrer fichas extensas.
+
+### Tokens de la sección
+
+Se conserva Plus Jakarta Sans: títulos de sección de 40–64 px, títulos de ficha de 30–40 px y texto principal de 15–16 px, con unidades relativas para el escalado del navegador.
+
+| Rol | Claro | Oscuro | Contraste sobre la superficie |
+| --- | --- | --- | --- |
+| Superficie | `#FFFFFF` | `#151922` | — |
+| Superficie secundaria | `#F3F5F9` | `#1E2430` | — |
+| Texto principal | `#18212F` | `#F0F3F9` | 16.19:1 / 15.82:1 |
+| Texto secundario | `#596579` | `#AEB9CA` | 5.90:1 / 8.87:1 |
+| Acento y foco | `#1C5BD8` | `#9ABFFF` | 5.94:1 / 9.44:1 |
+| Separador | `#DCE2EB` | `#333D50` | Decorativo |
+
+En escritorio, las categorías se organizan en tres columnas y el detalle en dos. En móvil, el contenido se apila y mantiene todas las funciones. Las ilustraciones 3D y las conexiones del proceso son el elemento expresivo; la navegación y el texto permanecen simples.
+
+```text
+Escritorio                         Móvil
+Mis proyectos.        Introducción Mis proyectos.
+Categorías · 4 proyectos           Introducción
+[ Sistemas ][ Apps ][ Sitios ]     [ Sistemas ]
+             ↓                     [ Apps     ]
+Categoría → Proyecto → Ficha        [ Sitios   ]
+[ Descripción ][ Vista conceptual ] Categoría → Proyecto
+[ Funcionalidades en dos columnas ] [ Descripción ]
+[ Tecnologías desplegables        ] [ Vista conceptual ]
+                                   [ Funcionalidades  ]
+                                   [ Tecnologías      ]
+```
+
+El criterio sigue las bases de las HIG de Apple, traducidas a web: `layout.md › Visual hierarchy` (divulgación progresiva), `typography.md › Ensuring legibility` y `motion.md › Providing feedback` (movimiento breve y opcional). La dirección artística de las vistas conceptuales es una decisión del proyecto.
+
+Los datos están en `src/components/projects/ProjectsData.ts`; la navegación, en `ProjectsSection.tsx`; las fichas y los estilos, en `src/components/projects/`. El loader de Tailwind se aplica únicamente a `globals.css` para conservar el procesamiento nativo de CSS Modules de Next.js.
 
 ---
 

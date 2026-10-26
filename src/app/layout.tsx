@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Inter, Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import PortfolioExperience from "@/components/PortfolioExperience";
 import SmoothScroll from "@/components/SmoothScroll";
 import "lenis/dist/lenis.css";
 import "./globals.css";
+import "./experience.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -93,9 +95,11 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300" suppressHydrationWarning>
         <ThemeProvider>
-          <SmoothScroll>
-            {children}
-          </SmoothScroll>
+          <PortfolioExperience>
+            <SmoothScroll>
+              {children}
+            </SmoothScroll>
+          </PortfolioExperience>
         </ThemeProvider>
       </body>
     </html>
